@@ -1,12 +1,13 @@
 function doPost(e) {
     var response = "";
-    const text = e.parameter.text;
-    switch (text) {
+    const text = e.parameter.text.split(" ");
+    const command = text[0];
+    switch (command) {
         case "question":
             response = question();
             break;
         case "answer":
-            response = answer();
+            response = answer(text.length > 1 ? text[1] : "");
             break;
     }
     return response;
@@ -23,7 +24,7 @@ function question() {
     return value[0];
 }
 
-function answer() {
+function answer(text) {
     const sheet = getSheet();
     const values = sheet.getSheetValues(1, 1, sheet.getLastRow(), 3);
     for (i = 0; i < values.length; i++) {
@@ -34,7 +35,11 @@ function answer() {
         const range = sheet.getRange(i + 1, 1);
         range.clear();
 
-        return values[i][2];
+        const answer = values[i][2];
+        if (text === answer) {
+            return "Correct :)";
+        }
+        return "Incorrect :(\n" + answer;
     }
 }
 
