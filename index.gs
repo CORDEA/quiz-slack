@@ -39,6 +39,6 @@ function answer() {
 }
 
 function getSheet() {
-    const id = PropertiesService.getScriptProperties().getProperty("ID")
-        return SpreadsheetApp.openById(id).getSheets()[0];
+    const id = PropertiesService.getScriptProperties().getProperty("ID");
+    return SpreadsheetApp.openById(id).getSheets()[0];
 }
